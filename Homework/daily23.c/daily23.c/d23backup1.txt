@@ -1,0 +1,126 @@
+#include <stdio.h>
+
+//Precondition: There must be three addresses that this function
+//  can use.
+//Postcondition: The number at the address of output has changed.
+void return_output_number(int* numbers1, int* numbers2, int* output);
+
+int main (int argc, char* argv[])
+{
+    FILE* fp1;
+    FILE* fp2;
+    FILE* fpOut;
+    
+    int i, j, k, l, numbers1, numbers2, output, larger_number,
+        find_file_size_1, find_file_size_2, file_size = 0;
+    
+    fp1 = fopen("numbers1.txt", "r");
+    
+    //try
+    find_file_size_1 = fscanf(fp1, "%d", &j);
+    
+    //check
+    while (find_file_size_1 == 1)
+    {
+        //do
+        file_size ++;
+        //try
+        find_file_size_1 = fscanf(fp1, "%d", &j);
+    }
+    
+    fclose(fp1);
+    
+    fp2 = fopen("numbers2.txt", "r");
+    
+    //try
+    find_file_size_2 = fscanf(fp2, "%d", &j);
+    
+    //check
+    while (find_file_size_2 == 1)
+    {
+        //do
+        file_size ++;
+        //try
+        find_file_size_2 = fscanf(fp2, "%d", &j);
+    }
+    
+    fclose(fp2);
+    
+    fp1 = fopen("numbers1.txt", "r");
+    fp2 = fopen("numbers2.txt", "r");
+    fpOut = fopen("output.txt", "w");
+    
+    numbers1 = fscanf(fp1, "%d", &k);
+    numbers2 = fscanf(fp2, "%d", &l);
+    if (numbers1 < numbers2)
+    {
+        larger_number = numbers2;
+        return_output_number(&numbers1, &numbers2, &output);
+        fprintf(stdout, "%d\n", output);
+        numbers1 = fscanf(fp1, "%d", &k);
+        while (numbers1 < larger_number)
+        {
+            return_output_number(&numbers1, &larger_number, &output);
+            fprintf(stdout, "%d\n", output);
+            numbers1 = fscanf(fp1, "%d", &k);
+        }
+    }
+    else if (numbers2 < numbers1)
+    {
+        larger_number = numbers1;
+        return_output_number(&numbers1, &numbers2, &output);
+        fprintf(stdout, "%d\n", output);
+        numbers2 = fscanf(fp2, "%d", &l);
+        while (numbers2 < larger_number)
+        {
+            return_output_number(&larger_number, &numbers2, &output);
+            fprintf(stdout, "%d\n", output);
+            numbers2 = fscanf(fp2, "%d", &l);
+        }
+    }
+    else
+    {
+        return_output_number(&numbers1, &numbers2, &output);
+        fprintf(stdout, "%d\n", output);
+        return_output_number(&numbers1, &numbers2, &output);
+        fprintf(stdout, "%d\n", output);
+    }
+    
+    
+    /*
+    for (i = 1; i < file_size; i++)
+    {
+        numbers1 = fscanf(fp1, "%d", &k);
+        numbers2 = fscanf(fp2, "%d", &l);
+        if (numbers1 < numbers2)
+        {
+            larger_number = numbers2;
+        }
+        else
+        {
+            larger_number = numbers1;
+        }
+        return_output_number(&numbers1, &numbers2, &output);
+        fprintf(fpOut, "%d\n", output);
+    }
+     */
+    
+    fclose(fp1);
+    fclose(fp2);
+    fclose(fpOut);
+    
+    
+    return 0;
+}
+
+void return_output_number(int* numbers1, int* numbers2, int* output)
+{
+    if (numbers1 < numbers2)
+    {
+        *output = *numbers1;
+    }
+    else
+    {
+        *output = *numbers2;
+    }
+}

@@ -1,0 +1,133 @@
+/************************************
+ Author:
+ Date:
+ 
+ Purpose:
+ 
+ Sources of Help:
+ Time Spent: 10:15 -
+************************************/
+
+#include <stdio.h>
+
+//Precondition: There must be three addresses that this function
+//  can use.
+//Postcondition: The number at the address of output has changed.
+void return_output_number(FILE* numbers1, FILE* numbers2, FILE* output);
+
+int main (int argc, char* argv[])
+{
+    FILE* fp1;
+    FILE* fp2;
+    FILE* fpOut;
+    
+    int i, j, k, l, numbers1, numbers2, output, larger_number,
+    find_file_size_1, find_file_size_2, file_size = 0, file_size_2 = 0, final_file_size;
+    
+    //Find the size of file 1
+    fp1 = fopen("numbers1.txt", "r");
+    
+    //try
+    find_file_size_1 = fscanf(fp1, "%d", &j);
+    
+    //check
+    while (find_file_size_1 == 1)
+    {
+        //do
+        file_size ++;
+        //try
+        find_file_size_1 = fscanf(fp1, "%d", &j);
+    }
+    
+    fclose(fp1);
+    
+    //Find the size of file 2
+    fp2 = fopen("numbers2.txt", "r");
+    
+    //try
+    find_file_size_2 = fscanf(fp2, "%d", &j);
+    
+    //check
+    while (find_file_size_2 == 1)
+    {
+        //do
+        file_size_2 ++;
+        //try
+        find_file_size_2 = fscanf(fp2, "%d", &j);
+    }
+    
+    fclose(fp2);
+    
+    
+    //TEST DATA print out ONLY numbers that exist
+    //  in the txt files, NO DUPLICATES
+    if (file_size > file_size_2)
+    {
+        final_file_size = file_size;
+        fp1 = fopen("numbers1.txt", "r");
+        fp2 = fopen("numbers2.txt", "r");
+        fpOut = fopen("output.txt", "w");
+        
+        while(i < final_file_size)
+        {
+            fscanf(fp1, "%d", &k);
+            fprintf(stdout, "%d\n", k);
+            fprintf(fpOut, "%d\n", k);
+            if (file_size_2 > i)
+            {
+                fscanf(fp2, "%d", &l);
+               fprintf(stdout, "%d\n", l);
+               fprintf(fpOut, "%d\n", l);
+            }
+            printf("***********************************\n");
+            return_output_number(fp1, fp2, fpOut);
+            fprintf(stdout, "%d\n", fpOut);
+            printf("***********************************\n");
+        }
+    }
+    else
+    {
+        final_file_size = file_size_2;
+        fp1 = fopen("numbers1.txt", "r");
+        fp2 = fopen("numbers2.txt", "r");
+        fpOut = fopen("output.txt", "w");
+        
+        for(i = 0; i < final_file_size; i++)
+        {
+            if (file_size > i)
+            {
+                fscanf(fp1, "%d", &k);
+                fprintf(stdout, "%d\n", k);
+                fprintf(fpOut, "%d\n", k);
+            }
+            fscanf(fp2, "%d", &l);
+            fprintf(stdout, "%d\n", l);
+            fprintf(fpOut, "%d\n", l);
+            
+            printf("***********************************\n");
+            return_output_number(fp1, fp2, fpOut);
+            fprintf(stdout, "%d\n", fpOut);
+            printf("***********************************\n");
+        }
+    }
+    
+    
+    fclose(fp1);
+    fclose(fp2);
+    fclose(fpOut);
+    
+    return 0;
+}
+
+void return_output_number(FILE* numbers1, FILE* numbers2, FILE* output)
+{
+    if (numbers1 < numbers2)
+    {
+        *output = *numbers1;
+    }
+    else
+    {
+        *output = *numbers2;
+    }
+    
+}

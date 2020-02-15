@@ -1,0 +1,20 @@
+if (k < l)
+            {
+                while (k < l)
+                {
+                    return_output_number(fp1, fp2, fpOut);
+                    fprintf(fpOut, "%d\n", k);
+                    i ++;
+                    fscanf(fp1, "%d", &k);
+                }
+            }
+            if (l < k)
+            {
+                while (l < k)
+                {
+                    return_output_number(fp1, fp2, fpOut);
+                    fprintf(fpOut, "%d\n", l);
+                    i ++;
+                    fscanf(fp2, "%d", &l);
+                }
+            }
