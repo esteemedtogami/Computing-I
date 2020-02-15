@@ -1,0 +1,53 @@
+/*****************************************
+
+
+
+ Time Spent: 5:31 -
+*****************************************/
+#include <stdio.h>
+#include <stdlib.h>
+#include <ctype.h>
+
+#define SIZE 80
+
+int main (int argc, char* argv[])
+{
+    FILE* fp;
+    char array[SIZE];
+    int number_of_conversions;
+    
+    fp = fopen("output.txt", "w");
+    
+    fprintf(stdout, "Please enter characters: ");
+    
+    number_of_conversions = fscanf(stdin, "%s", array);
+    
+    while (number_of_conversions == 1)
+    {
+        fprintf(fp, "%s ", array);
+        number_of_conversions = fscanf(stdin, "%s", array);
+    }
+    
+    fclose(fp);
+    
+    fp = fopen("output.txt", "r");
+    
+    fgets(array, SIZE, fp); //daily24
+    
+    fprintf(stdout, "%s ", array);
+    /*
+    number_of_conversions = scanf("%s", array);
+    
+    while (number_of_conversions == 1)
+    {
+        printf("%s ", array);
+        
+    }
+     */
+    
+    printf("\n");
+    
+    fclose(fp);
+    
+    return 0;
+}
