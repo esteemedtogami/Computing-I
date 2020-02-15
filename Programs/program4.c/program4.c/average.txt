@@ -1,0 +1,10 @@
+/*
+ Author: Sam Pickell
+ Course: Computing I Section 203
+ Date: 11/12/15
+ Description: This file is the output
+	file “average.txt” used in 
+	program4.c. Be sure to delete
+	this header before running the
+	program.
+*/
